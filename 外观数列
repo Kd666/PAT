@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <memory.h>  
+#define MAXN 100000  //数组最大值
+#define M 18  //输出到第几个数
+char s[MAXN+1], t[MAXN+1];  
+char *ps, *pt;  
+int _tmain(int argc, _TCHAR* argv[])
+{
+    char look;//看的是哪个  
+    int say;//说第几个
+    memset(s, 0, sizeof(s));//作用是在一段内存块中填充某个给定的值，它是对较大的结构体或数组进行清零操作的一种最快方法
+    memset(t, 0, sizeof(t));
+    s[0] = '1';//第一个是1  
+    printf("%s\n", s);//s是要输出的结果,输出第一个数
+    ps = s;
+    pt = t;
+    for(int i=1; i<M; i++) {//执行M-1次循环体
+        look = *ps;  //先看ps的第一个
+        say = 1;  //第一次出现，即出现一次
+        while(*(++ps)) {  //ps逐个往后移动.完成一次识别并生成，识别ps的样子，生成的内容放到pt
+            if(*ps == look)  //如果ps指的东西等于look
+                say++;  //个数加一
+            else {  //否则，一个段描述完了，该写入pt中了
+                *pt++ = '0' + say;//pt的下一个的值是几次  连着下一句一起说明几个几
+                *pt++ = look;  //pt的下一个的值是看见的
+                look = *ps;  //让look的值为看见的下一个
+                say = 1;  //定义为1次
+            }  
+        } 
+        //收尾工作，最后一个放到pt中
+        *pt++ = '0' + say;  
+        *pt++ = look;  
+        if(i & 1) {  //i为奇数的时候执行此句 
+            ps = t;  
+            pt = s;  
+        } else {  //i为偶数的时候执行此句
+            ps = s;  
+            pt = t;  
+        }
+        printf("%s\n", ps);//s是要输出的结果
+    }  
+    return 0; 
+}
