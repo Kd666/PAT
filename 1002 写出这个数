@@ -1,0 +1,52 @@
+
+int main(){
+
+ 
+
+	string n;
+
+	int sum = 0;
+
+	cin >> n;
+
+	vector<string> strings{"ling","yi","er","san","si","wu","liu","qi","ba","jiu"};
+
+	vector<int> num;
+
+	for (int i = 0; i < n.size(); ++i)
+
+	{
+
+		sum += (n[i] - '0');//注意char和int的转换;
+
+	}
+  int temp;
+
+	while (sum > 0)
+
+	{
+
+		temp = sum % 10;
+
+		num.push_back(temp);
+
+		sum /= 10;
+
+	}
+	int st = num.size();
+
+	for (int i = st - 1; i > 0; i--)
+
+	{
+
+		cout << strings[num[i]] << " ";
+
+	}
+
+	cout << strings[num[0]];
+
+	system("pause");
+
+	return 0;
+
+}
